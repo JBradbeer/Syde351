@@ -2,37 +2,60 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
-j14 = 1
-b15 = 0.2
-mod = 1
-k23 = 2
-b25 = 0.2
-m24 = 1
+
 
 ##############
-## y0 = h14
+## y0 = h14 
 ## y1 = theta
 ## y2 = p24
 ## y3 = x23
 ##############
 
 def model(y, t):
-	dy0 = -b15*y[0]/j14 - mod*y[2]/m24
-	dy1 = y[0]/j14
-	dy2 = mod*y[0]/j14 - k23*y[3] - y[2]/m24
-	dy3 = y[2]/m24
-	return [dy0, dy1, dy2, dy3]
+	h14 = y[0]
+	theta = y[1]
+	p24 = y[2]
+	x23 = y[3]
+
+	
+	b15 = 0.2
+	k23 = 2
+	b25 = 0.2
+	m24 = 1
+
+	j14 = 1 + m24*x23**2
+	mod = (h14/j14)*x23*m24
+
+	dh14 = -b15*h14/j14 - mod*p24/m24
+	dtheta = h14/j14
+	dp24 = mod*h14/j14 - k23*x23 - p24/m24
+	dx23 = p24/m24
+	return [dh14, dtheta, dp24, dx23]
 
 time = np.linspace(0.0, 20.0, 100)
-yinit = [5, 0, 0, 2]
+yinit = [10, 0, 0, .5]
 y = odeint(model, yinit, time)
 
-plt.plot(time, y[:,0], label="1")
-plt.plot(time, y[:,1], label="2") 
-plt.plot(time, y[:,2], label="3")
-plt.plot(time, y[:,3], label="4")
-
+plt.plot(time, y[:,0], label="h14")
 plt.xlabel('t')
-plt.ylabel('y')
+plt.ylabel('Angular Momentum')
+plt.legend()
+plt.show()
+
+plt.plot(time, y[:,1], label="theta")
+plt.xlabel('t')
+plt.ylabel('Angle of rotation')
+plt.legend()
+plt.show()
+
+plt.plot(time, y[:,2], label="p24")
+plt.xlabel('t')
+plt.ylabel('Momentum')
+plt.legend()
+plt.show()
+
+plt.plot(time, y[:,3], label="x23")
+plt.xlabel('t')
+plt.ylabel('Displacement')
 plt.legend()
 plt.show()
