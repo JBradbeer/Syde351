@@ -36,26 +36,14 @@ time = np.linspace(0.0, 20.0, 100)
 yinit = [10, 0, 0, .5]
 y = odeint(model, yinit, time)
 
-plt.plot(time, y[:,0], label="h14")
-plt.xlabel('t')
-plt.ylabel('Angular Momentum')
-plt.legend()
-plt.show()
+counter = 0
+label_name = ["h14", "theta", "p24", "x23"]
+ylabel = ['Angular Momentum', 'Angle of rotation', 'Momentum', 'Displacement']
 
-plt.plot(time, y[:,1], label="theta")
-plt.xlabel('t')
-plt.ylabel('Angle of rotation')
-plt.legend()
-plt.show()
+for i < 4:
+	plt.plot(time, y[:, counter], label = label[counter])
+	plt.xlabel('t')
+	plt.ylabel(ylabel(counter))
+	plt.legend()
+	plt.show()
 
-plt.plot(time, y[:,2], label="p24")
-plt.xlabel('t')
-plt.ylabel('Momentum')
-plt.legend()
-plt.show()
-
-plt.plot(time, y[:,3], label="x23")
-plt.xlabel('t')
-plt.ylabel('Displacement')
-plt.legend()
-plt.show()
