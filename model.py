@@ -46,4 +46,5 @@ for i < 4:
 	plt.ylabel(ylabel(counter))
 	plt.legend()
 	plt.show()
+	i += 1
 
